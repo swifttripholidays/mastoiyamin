@@ -9,10 +9,15 @@ export async function GET(request: Request) {
   const sessionId = clean(url.searchParams.get('sessionId'), 80);
   const token = clean(url.searchParams.get('token'), 160);
   if (!sessionId || !token) return Response.json({ error: 'Conversation credentials are missing.' }, { status: 400 });
-  const conversation = await getVisitorConversation(sessionId, token).catch(() => null);
-  return conversation
-    ? Response.json(conversation)
-    : Response.json({ error: 'Conversation not found.' }, { status: 404 });
+  try {
+    const conversation = await getVisitorConversation(sessionId, token);
+    return conversation
+      ? Response.json(conversation)
+      : Response.json({ error: 'Conversation not found.' }, { status: 404 });
+  } catch (error) {
+    console.error('chat-session-read-failed', error);
+    return Response.json({ error: 'Chat database is unavailable. Please try again shortly.' }, { status: 503 });
+  }
 }
 
 export async function POST(request: Request) {
@@ -21,8 +26,13 @@ export async function POST(request: Request) {
   const token = clean(body.token, 160);
   const message = clean(body.message, 1200);
   if (!sessionId || !token || message.length < 1) return Response.json({ error: 'Write a message first.' }, { status: 400 });
-  const conversation = await addVisitorChatMessage(sessionId, token, message).catch(() => null);
-  return conversation
-    ? Response.json(conversation, { status: 201 })
-    : Response.json({ error: 'Conversation not found.' }, { status: 404 });
+  try {
+    const conversation = await addVisitorChatMessage(sessionId, token, message);
+    return conversation
+      ? Response.json(conversation, { status: 201 })
+      : Response.json({ error: 'Conversation not found.' }, { status: 404 });
+  } catch (error) {
+    console.error('chat-message-write-failed', error);
+    return Response.json({ error: 'Chat database is unavailable. Please try again shortly.' }, { status: 503 });
+  }
 }

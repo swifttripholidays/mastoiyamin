@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { neon } from '@neondatabase/serverless';
 
-const connectionString = process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING || process.env.NEON_DATABASE_URL;
 if (!connectionString) {
   console.error('DATABASE_URL is required. Connect a Neon database to run migrations.');
   process.exit(1);

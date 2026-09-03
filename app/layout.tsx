@@ -21,6 +21,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(getSiteUrl()),
+  icons: { icon: '/favicon.svg', shortcut: '/favicon.svg' },
   title: 'Yamin Mastoi — Entrepreneur, AI Specialist & Full-Stack Developer',
   description:
     'The portfolio and journal of Yamin Mastoi, an entrepreneur, AI specialist and full-stack developer building intelligent digital ventures.',
