@@ -25,6 +25,7 @@ import type { JournalPost } from '@/lib/site-data';
 type Tab = 'overview' | 'posts' | 'media' | 'chats' | 'inbox' | 'social';
 type Message = { id: string; name: string; email: string; message: string; created_at: string; status: string };
 type ChatSession = { id: string; visitor_name: string; status: 'ai' | 'human' | 'closed'; last_message_at: string; last_message: string; message_count: number };
+type PostDraft = Omit<JournalPost, 'id' | 'publishedAt'> & { coverUrl: string };
 type ChatMessage = { id: string; sender: 'visitor' | 'assistant' | 'owner'; body: string; created_at: string };
 type ActiveChat = { session: ChatSession; messages: ChatMessage[] };
 
@@ -40,7 +41,7 @@ export function AdminStudio({ displayName, signOutPath }: { displayName: string;
   const [activeChat, setActiveChat] = useState<ActiveChat | null>(null);
   const [chatReply, setChatReply] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [draft, setDraft] = useState(emptyPost);
+  const [draft, setDraft] = useState<PostDraft>(emptyPost);
   const [notice, setNotice] = useState('');
   const [socialCopy, setSocialCopy] = useState('Building intelligent products, digital ventures and meaningful experiences.');
   const [selectedNetworks, setSelectedNetworks] = useState(['LinkedIn', 'X']);

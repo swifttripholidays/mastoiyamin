@@ -2,7 +2,7 @@ import type { JournalPost } from '@/lib/site-data';
 import { createConciergeReply } from '@/lib/chat-assistant';
 import { getSql, type QueryRow } from '@/lib/neon';
 
-type ChatStatus = 'ai' | 'human' | 'closed';
+export type ChatStatus = 'ai' | 'human' | 'closed';
 
 function asPost(row: QueryRow): JournalPost {
   return {
