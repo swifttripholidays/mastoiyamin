@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import { getSiteUrl } from '@/lib/site-url';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,7 +20,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(getSiteUrl()),
   title: 'Yamin Mastoi — Entrepreneur, AI Specialist & Full-Stack Developer',
   description:
     'The portfolio and journal of Yamin Mastoi, an entrepreneur, AI specialist and full-stack developer building intelligent digital ventures.',

@@ -18,7 +18,7 @@ The original Cloudflare D1/R2 and Vinext-only bindings have been removed from th
 1. Install Node.js 22.13+.
 2. Run `npm install`.
 3. Copy `.env.example` to `.env.local`.
-4. Set `DATABASE_URL`, `ADMIN_ACCESS_CODE`, `ADMIN_SESSION_SECRET`, and `NEXT_PUBLIC_SITE_URL`.
+4. Set `DATABASE_URL`, `ADMIN_ACCESS_CODE`, `ADMIN_SESSION_SECRET`, and `NEXT_PUBLIC_SITE_URL`. `NEXT_PUBLIC_SITE_URL` may be left unset/empty during preview deployments; the app will fall back to Vercel's `VERCEL_URL`, then `http://localhost:3000` locally.
 5. Connect a Neon database and run `npm run db:migrate`.
 6. Run `npm run dev`.
 
